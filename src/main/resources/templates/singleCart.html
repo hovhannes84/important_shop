@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Single product</title>
+</head>
+<body>
+<div th:if="${currentUser != null}">Welcome <b th:text="${currentUser.name}"></b></div>
+
+<a href="/products">Back</a>
+<h2 th:text="${cartProduct.product.title}"></h2>
+<div class="card-body">
+  <table id="datatablesSimple">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>title</th>
+      <th>price</th>
+      <th>description</th>
+      <th>img</th>
+      <th>category</th>
+      <th>aktion</th>
+
+    </tr>
+    </thead>
+    <tr th:each="product : ${products}"  th:if="${product.product.id == cartProduct.product.id}">
+      <td th:text="${product.product.id}"></td>
+      <td th:text="${product.product.title}"></td>
+      <td th:text="${product.product.getPrice()}"></td>
+      <td th:text="${product.product.description}"></td>
+      <td> <img th:if="${product.product.getImgPath() != null}" th:src="@{/getImage(profilePic=${product.product.getImgPath()})}" width="100"/></td>
+      <td th:text="${product.product.category.name}"></td>
+      <td >
+        <form th:action="@{/cart/order/add/{id}(id=${product.product.id})}" method="post">
+          <input type="hidden" name="productId" th:value="${product.product.id}">
+          <button type="submit">Pay</button>
+        </form>
+
+
+      </td>
+      </td>
+    </tr>
+    <tbody>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>

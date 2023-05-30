@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>addProducts</title>
+</head>
+<body>
+<div th:if="${currentUser!= null}">Welcome <b th:text="${currentUser .name}"></b> <br>
+  <a href="/logout"> Logout</a>
+</div>
+<form action="/products/add" method="post" enctype="multipart/form-data">
+  title:<input type="text" name="title" ><br>
+  price:<input type="text" name="price" ><br>
+  description:<input type="text" name="description" ><br>
+  <select name="category" >
+    <option th:each="category : ${categories}"
+            th:value="${category.id}"
+            th:text="${category.name }">
+    </option>
+  </select><br>
+  image:<input type="file" name="image" ><br>
+  <input type="submit" value="create">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Single product</title>
+</head>
+<body>
+<div th:if="${currentUser != null}">Welcome <b th:text="${currentUser.name}"></b></div>
+
+<a href="/products">Back</a>
+<h2 th:text="${product.title}"></h2>
+<img th:if="${product.getImgPath() != null}" th:src="@{/getImage(profilePic=${product.getImgPath()})}" width="400"/>
+
+<p th:text="${product.description}"></p>
+category: <span th:if="${product.category != null}" th:text="${product.category.name}"></span><br>
+
+<form action="/cart/add" method="post">
+  <input type="hidden" name="productId" th:value="${product.id}">
+  <button type="submit">Add to Cart</button>
+</form>
+</body>
+</html>
